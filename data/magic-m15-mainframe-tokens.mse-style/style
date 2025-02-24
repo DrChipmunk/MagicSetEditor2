@@ -64,6 +64,7 @@ init script:
 		card9: "m20/" 
 		snow: "/magic-modules.mse-include/trims/snow/"
 		nyx: "/magic-modules.mse-include/trims/nyx/"
+		subroutine: "/magic-modules.mse-include/trims/subroutine/"
 		pt:"/magic-modules.mse-include/pts/375 m15/"
 		snowbox: "/magic-modules.mse-include/cards/375 m15 simple/snow/"
 		stamp:"stamps/round/"
@@ -84,6 +85,7 @@ init script:
 		card9: "card3.png",
 		snow: "snow.png"
 		nyx: "nyx.png"
+		subroutine: "subroutine.png"
 		pt: "pt.png"
 		stamp: "stamp.png"
 		ubstamp: "stamp.png",
@@ -140,6 +142,7 @@ init script:
 	is_legend :=	{  auto_legend() 	or contains(styling.frames, match:"legendary") }
 	is_vehicle :=	{ (auto_vehicle()	or contains(styling.frames, match:"vehicle"))	and not is_m20() }
 	is_nyx :=		{ (auto_nyx()		or contains(styling.frames, match:"nyx"))		and not is_clear() }
+	is_subroutine :=		{ contains(styling.frames, match:"subroutine") }
 	is_snow :=		{ (auto_snow()		or contains(styling.frames, match:"snow")) }
 	auto_legend :=	{ set.auto_legends									and lang_setting("is_legendary")(card.super_type) }
 	auto_vehicle := { contains(styling.auto_frames, match:"vehicle")	and lang_setting("is_vehicle")(card.sub_type) }
@@ -257,6 +260,7 @@ styling field:
 	choice: M20
 	choice: MTGO Ability
 	choice: nyx
+	choice: subroutine
 	choice: snow
 	choice: vehicle
 	choice: custom border
@@ -701,6 +705,12 @@ extra card field:
 	editable: false
 extra card field:
 	type: choice
+	name: subroutine overlay
+	script: card.card_color
+	save value: false
+	editable: false
+extra card field:
+	type: choice
 	name: snow overlay
 	script: card.card_color
 	save value: false
@@ -833,6 +843,16 @@ extra card style:
 		image: {module_nyx()}
 		mask: {if is_m20() then "m20/nyx_mask.png" else "v_" + if is_tall() then "tall_mask.png" else if is_textless() then "short_mask.png" else "mid_mask.png"}
 		visible: { is_nyx() }
+	subroutine overlay:
+		left: {if is_m20() then 0 else 15}
+		top: {if is_m20() then 0 else 15}
+		width: {if is_m20() then 375 else 345}
+		height: {if is_m20() then 523 else 471}
+		z index: 1
+		render style: image
+		image: {module_subroutine()}
+		mask: {if is_m20() then "m20/nyx_mask.png" else "v_" + if is_tall() then "tall_mask.png" else if is_textless() then "short_mask.png" else "mid_mask.png"}
+		visible: { is_subroutine() }
 	snow overlay:
 		left: {if is_m20() then 0 else 15}
 		top: {if is_m20() then 0 else 15}

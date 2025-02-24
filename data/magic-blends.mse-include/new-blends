@@ -1039,6 +1039,15 @@ module_nyx :=	 	{
 		folder:template_prefix["nyx"],
 	)
 }
+module_subroutine :=	 	{ 
+	type := "subroutine"
+	color_background(
+		type: type,
+		blend_type: "subroutine",
+		base_hybrid:card_hybrid,
+		folder:template_prefix["subroutine"],
+	)
+}
 module_snow :=	 	{ color_background(type:"snow",		base_hybrid:card_hybrid,		folder:template_prefix["snow"]) }
 module_alias :=	 	{ color_background(type:"alias",	base_hybrid:card_hybrid,		folder:template_prefix["alias"]) }
 module_ptbox := 	{ 

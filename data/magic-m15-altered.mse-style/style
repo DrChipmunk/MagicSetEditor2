@@ -79,6 +79,7 @@ init script:
 		alias: "/magic-modules.mse-include/extras/alias/",
 		snow: "/magic-modules.mse-include/trims/snow/",
 		nyx: "/magic-modules.mse-include/trims/nyx/",
+		subroutine: "/magic-modules.mse-include/trims/subroutine/",
 		nyx_shifted: "/magic-modules.mse-include/trims/nyx/shifted/",
 		draft: "/magic-modules.mse-include/trims/conspiracy/",
 		crown: "/magic-modules.mse-include/crowns/375/",
@@ -126,6 +127,7 @@ init script:
 		alias: "alias.png",
 		snow: "snow.png",
 		nyx: "nyx.png",
+		subroutine: "subroutine.png",
 		nyx_shifted: "nyx.png",
 		draft: "draft.png",
 		crown: "crown.png",
@@ -181,6 +183,7 @@ init script:
 	}
 	landless_ar := [
 		nyx: true,
+		subroutine: true,
 		nyx_shifted: true,
 		star: true,
 		node: true,
@@ -287,6 +290,9 @@ init script:
 		chosen(styling.frames, choice:"nyx")
 		or (lang_setting("is_enchantment")(card.super_type) and set.auto_nyx)
 	}
+	is_subroutine := {
+		chosen(styling.frames, choice:"subroutine")
+	}
 	is_leveler := {
 		chosen(styling.frames, choice:"leveler")
 	}
@@ -346,6 +352,15 @@ init script:
 			blend_type: "nyx",
 			base_hybrid:card_hybrid,
 			folder:template_prefix["nyx"],
+		)
+	}
+	module_subroutine :=	 	{ 
+		type := "subroutine"
+		color_background(
+			type: type,
+			blend_type: "subroutine",
+			base_hybrid:card_hybrid,
+			folder:template_prefix["subroutine"],
 		)
 	}
 
@@ -930,6 +945,7 @@ styling field:
 	choice: universes beyond
 	choice: miracle
 	choice: nyx
+	choice: subroutine
 	choice: vehicle
 	choice: leveler
 	choice: snow
@@ -1743,6 +1759,13 @@ extra card field:
 	script: card.card_color
 extra card field:
 	type: choice
+	name: subroutine overlay
+	choice: subroutine
+	save value: false
+	editable: false
+	script: card.card_color
+extra card field:
+	type: choice
 	name: snow overlay
 	choice: snow
 	save value: false
@@ -2080,6 +2103,16 @@ extra card style:
 		z index: 330
 		visible: { not is_map() and not uses_expanded_art() and is_nyx() }
 		mask: { if is_snow() or is_custom_border() or is_draft() or is_vehicle() then twin_trim_mask() else main_trim_mask() }
+	subroutine overlay:
+		left: 0
+		top: 0
+		width: 375
+		height: 523
+		render style: image
+		image: {devoid_mask(module_subroutine())}
+		z index: 330
+		visible: {is_subroutine()}
+		mask: { if is_snow() or is_custom_border() or is_draft() or is_vehicle() then twin_trim_mask() else main_trim_mask()}
 	snow overlay:
 		left: 0
 		top: 0
