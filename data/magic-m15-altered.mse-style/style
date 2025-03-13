@@ -2249,7 +2249,8 @@ extra card style:
 		width: {if card.level_1 != "" then arrow_width() else 0}
 		height:	{arrow_height(1)}
 		render style: image
-		image: {if loy_leveler() then loyalty_image(card.level_1) else if box_leveler() then choose_ptbox() else arrow_img_1()}
+#		image: {if loy_leveler() then loyalty_image(card.level_1) else if box_leveler() then choose_ptbox() else arrow_img_1()}
+		image: {if loy_leveler() then loyalty_image(card.level_1) else if box_leveler() then choose_ptbox() else combine_blend(image1: arrow_img_1(), image2: template_prefix["arrow"]+"level_1_multiply.png", combine: "multiply")}
 	arrow 3:
 		z index: 840
 		left: {arrow_left()}
@@ -2257,7 +2258,8 @@ extra card style:
 		width: {if card.level_2 != "" then arrow_width() else 0}
 		height:	{arrow_height(2)}
 		render style: image
-		image: {if loy_leveler() then loyalty_image(card.level_2) else if box_leveler() then choose_ptbox() else arrow_img_2()}
+#		image: {if loy_leveler() then loyalty_image(card.level_2) else if box_leveler() then choose_ptbox() else arrow_img_2()}
+		image: {if loy_leveler() then loyalty_image(card.level_2) else if box_leveler() then choose_ptbox() else combine_blend(image1: arrow_img_1(), image2: template_prefix["arrow2"]+"level_2_multiply.png", combine: "multiply")}
 	arrow 4:
 		z index: 840
 		left: {arrow_left()}
